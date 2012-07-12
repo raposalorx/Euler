@@ -1,8 +1,10 @@
 import Data.List
-import Data.Numbers.Primes
-import Debug.Trace
+import Data.Maybe
+--import Data.Numbers.Primes
+--import Debug.Trace
 
-factor x = base++(map (x`div`) $ reverse $ base)
+factor :: Int -> [Int]
+factor x = base++(map (x`div`) $ reverse base)
   where base = filter ((0==).(rem x)) $ takeWhile (<=(truncate.sqrt.fromIntegral $ x)) [1..]
 
 --filterRoot n = (<=(truncate.sqrt.fromIntegral $ n))
@@ -19,6 +21,9 @@ factor x = base++(map (x`div`) $ reverse $ base)
                 (\z-> (++) z $ foldl1 (++) $ map (\x-> map (\y->x*y) prev) $ cur++z) $
                   foldl1 (++) $ map (\x-> map ((head x)*) $ x) $ (init.tails) cur
 -}
+
+cands :: [Int]
 cands = unfoldr (\(b,s)-> Just (s,(b+1,s+b+1))) (1,1)
 
-main = putStrLn $ show $ maybe 0 (\x->x) $ find (\x-> length (factor x) > 500) $ cands
+main :: IO()
+main = print $ fromMaybe 0 $ find (\x-> length (factor x) > 500) cands

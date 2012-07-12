@@ -17,4 +17,4 @@ cands = listArray (0,cap) $ 0:1:[(1+) $ find $ newN y| y <- [2..cap]]
     find n  | n<=cap = cands!n
             | otherwise = (1+) $ find $ newN n
 
-main = putStrLn $ show $ foldr1 (\(x,x1) (y,y1) -> if x1 >= y1 then (x,x1) else (y,y1)) $ map (\x -> (x,cands!x)) [1..cap]
+main = print $ foldr1 (\(x,x1) (y,y1) -> if x1 >= y1 then (x,x1) else (y,y1)) $ map (\x -> (x,cands!x)) [1..cap]
